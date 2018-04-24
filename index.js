@@ -5,6 +5,7 @@ const nunjucks = require('nunjucks');
 const routes = require('./routes');
 const path = require('path');
 const app = express();
+const models = require('./models')
 
 // nunjucks
 
@@ -27,6 +28,15 @@ app.use(bodyParser.json());
 
 app.use('/', routes);
 
-app.listen(3000, () => {
-  console.log('listening on port 3000');
+models.db.sync({force: true})
+.then (() => {
+  console.log('All tables added')
+  app.listen(3000, () => {
+    console.log('listening on port 3000');
+  })
+  
 })
+.catch(console.error.bind(console));
+
+
+
