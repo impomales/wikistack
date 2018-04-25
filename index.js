@@ -28,13 +28,13 @@ app.use(bodyParser.json());
 
 app.use('/', routes);
 
-models.db.sync({force:true})
+models.db.sync()
 .then (() => {
   console.log('All tables added')
   app.listen(3000, () => {
     console.log('listening on port 3000');
   })
-  
+
 })
 .catch(console.error.bind(console));
 

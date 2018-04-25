@@ -12,7 +12,7 @@ Page.findAll()
   })
 });
 
-router.post('/', (req, res) => {
+router.post('/', (req, res, next) => {
 
   User.findOrCreate({
     where: {
@@ -21,22 +21,24 @@ router.post('/', (req, res) => {
     }
   })
   .then(function (values) {
-  
+
     const user = values[0];
-  
+
     const page = Page.build({
       title: req.body.title,
-      content: req.body.content
+      content: req.body.content,
+      status: req.body.status
     });
-  
+
     return page.save().then(function (page) {
       return page.setAuthor(user);
     });
-  
+
   })
   .then(function (page) {
-    res.redirect(page.route);
+    res.redirect(page.urlTitle);
   })
+  .catch(next);
 
 
 
