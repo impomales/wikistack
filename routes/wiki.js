@@ -7,7 +7,6 @@ const router = express.Router();
 router.get('/', (req, res) => {
 Page.findAll()
 .then((pages) => {
-  console.log("***************", pages)
   res.render('index', {pages})
   })
 });
@@ -65,7 +64,6 @@ router.get('/:urlTitle', (req, res) => {
     where: {urlTitle: req.params.urlTitle}
   })
   .then(page => {
-     console.log(page);
     res.render('wikipage', {page});
   })
 })
