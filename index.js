@@ -28,7 +28,7 @@ app.use(bodyParser.json());
 
 app.use('/', routes);
 
-models.db.sync({force: true})
+models.db.sync({force:true})
 .then (() => {
   console.log('All tables added')
   app.listen(3000, () => {
